@@ -1,7 +1,10 @@
 package com.lesson5;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Person {
-    private static int id;
+
     private String fullName, position, eMail, phoneNumber;
     private float salary;
     private int age;
@@ -39,9 +42,7 @@ public class Person {
         this.phoneNumber = phoneNumber;
     }
 
-    public float getSalary() {
-        return salary;
-    }
+
 
     public void setSalary(float salary) {
         this.salary = salary;
@@ -63,8 +64,8 @@ public class Person {
         this.personId = personId;
     }
 
-    Person(String fullName, String position, String phoneNumber, float salary, int age ){
-        personId=id++;
+    public Person(String fullName, String position, String phoneNumber, float salary, int age ){
+        personId=this.hashCode();
         this.fullName=fullName;
         this.position=position;
         this.eMail=eMail;
@@ -75,26 +76,27 @@ public class Person {
     }
 
     private String createEMail(String fullName){
-        String surname = "";
-        for (int i = 0; i < fullName.indexOf(' '); i++) {
-            surname=surname+fullName.charAt(i);
-        }
-        return fullName.toLowerCase().charAt(fullName.indexOf(' ')+1)+"."+surname.toLowerCase()+"@example.com";
+        String[] names= fullName.toLowerCase().split(" ");
+        if(names.length==1) return names[0]+"@example.com";
+        else
+        return names[1].charAt(0)+"."+names[0]+"@example.com";
+
+
 
     }
 
     @Override
     public String toString() {
-        return "Сотрудник{" +
-                "ФИО='" + fullName + '\'' +
-                ", Должность='" + position + '\'' +
+        return  "Fullname='" + fullName + '\'' +
+                ", Position='" + position + '\'' +
                 ", e-mail='" + eMail + '\'' +
-                ", Номер телефона='" + phoneNumber + '\'' +
-                ", Заработная плата=" + salary +
-                ", Возраст=" + age +
+                ", Phone number=" + phoneNumber + '\'' +
+                ", Salary=" + salary +
+                ", Age=" + age +
                 '}';
     }
     public void outPersonToConsole(){
         System.out.println(toString());
     }
+
 }
